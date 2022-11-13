@@ -56,13 +56,16 @@ namespace ePizzaHub.Repositories.Impelementations
 
         public int DeleteItem(Guid cartId, int itemId)
         {
-            var item =context.CartItems.Where(c=>c.CartId==cartId && c.ItemId==itemId).FirstOrDefault();
-            if(item!=null)
+            var item = context.CartItems.Where(c => c.Id == itemId && c.CartId == cartId).FirstOrDefault();
+            if (item != null)
             {
                 context.CartItems.Remove(item);
                 return context.SaveChanges();
             }
-            return 0;
+            else
+            {
+                return 0;
+            }
         }
 
         public int UpdateQuantity(Guid cartId, int itemId, int Quantity)

@@ -36,6 +36,8 @@ function deleteItem(id) {
     }
 }
 function updateQuantity(id, total, quantity) {
+    console.log(total);
+    console.log(quantity);
     if (id > 0 && quantity > 0) {
         $.ajax({
             type: "GET",
@@ -55,6 +57,20 @@ function updateQuantity(id, total, quantity) {
             type: "GET",
             contentType: "application/json",
             url: '/Cart/UpdateQuantity/' + id + "/" + quantity,
+            success: function (data) {
+                if (data > 0) {
+                    location.reload();
+                }
+            },
+            error: function (result) {
+            },
+        });
+    }
+    else if (id > 0 && quantity < 0 && total == 1) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json",
+            url: '/Cart/UpdateQuantity/' + id + "/" + 0,
             success: function (data) {
                 if (data > 0) {
                     location.reload();
